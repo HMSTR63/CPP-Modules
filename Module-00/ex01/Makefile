@@ -1,5 +1,5 @@
 CPPC = c++ -std=c++98
-CPPFLAGS = -Wall -Wextra -Werror -I.
+CPPFLAGS = -Wall -Wextra -Werror
 NAME = phonebook
 
 SRC = main.cpp contact.cpp phonebook.cpp

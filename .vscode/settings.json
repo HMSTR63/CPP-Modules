@@ -47,6 +47,7 @@
         "optional": "cpp",
         "random": "cpp",
         "utility": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "fstream": "cpp"
     }
 }

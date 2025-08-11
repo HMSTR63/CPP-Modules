@@ -26,7 +26,7 @@ clean:
 
 fclean: clean
 	@echo "\033[0;31m🗑️ Removing final executable ($(NAME))...\033[0m"
-	@rm -f $(NAME)
+	@rm -f $(NAME) $(DEP)
 	@echo "\033[0;32m✔️  Full clean complete.\033[0m"
 
 re: fclean all
