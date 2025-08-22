@@ -4,7 +4,7 @@ int main(int c, char **v)
 {
     if (c != 4)
     {
-        std::cerr << "check num of args" << '\n';
+        std::cout << "check num of args" << '\n';
         return (1);
     }
     Sed sed(v[1], v[2], v[3]);

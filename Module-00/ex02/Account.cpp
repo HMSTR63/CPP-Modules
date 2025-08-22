@@ -1,3 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Account.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/16 03:50:22 by sojammal          #+#    #+#             */
+/*   Updated: 2025/08/18 01:08:45 by sojammal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "Account.hpp"
 #include <iostream>
 #include <ctime>
@@ -104,7 +117,7 @@ bool Account::makeWithdrawal(int withdrawal)
     if (withdrawal > this->checkAmount())
     {
         std::cout << "withdrawal:refused" << '\n';
-        return 1;
+        return true;
     }
     this->_amount -= withdrawal;
     this->_nbWithdrawals += 1;
@@ -113,5 +126,5 @@ bool Account::makeWithdrawal(int withdrawal)
     std::cout << "withdrawal:" << withdrawal << ";";
     std::cout << "amount:" << this->checkAmount() << ";";
     std::cout << "nb_withdrawals:" << this->_nbWithdrawals << '\n';
-    return (0);
+    return false;
 }

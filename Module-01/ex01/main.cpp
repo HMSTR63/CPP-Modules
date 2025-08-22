@@ -6,7 +6,7 @@ int main()
     Zombie *zombie = zombieHorde(N, "HMSTR");
     if (!zombie)
     {
-        std::cerr << "Failed to create zombie horde." << std::endl;
+        std::cout << "Failed to create zombie horde." << std::endl;
         return 1;
     }
     int h = 0;

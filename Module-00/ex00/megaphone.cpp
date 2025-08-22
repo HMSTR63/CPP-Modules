@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/16 03:50:16 by sojammal          #+#    #+#             */
+/*   Updated: 2025/08/18 03:11:29 by sojammal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <iostream>
 
 int main(int c, char **v)
 {
 	if (c < 2)
-		std::cout << "LOUD AND UNBEARABLE FEEDBACK NOISE" << '\n';
+		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << '\n';
 	else
 	{
 		int h = 1;
@@ -11,9 +23,7 @@ int main(int c, char **v)
 		{
 			int m = 0;
 			while (v[h][m])
-			{
 				std::cout << (char)toupper(v[h][m++]);
-			}
 			h++;
 		}
 		std::cout << '\n';

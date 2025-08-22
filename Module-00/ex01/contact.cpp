@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   contact.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sojammal <sojammal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/16 03:49:48 by sojammal          #+#    #+#             */
+/*   Updated: 2025/08/18 03:17:44 by sojammal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Contact.hpp"
 
 bool space(const std::string &str)
@@ -5,6 +17,16 @@ bool space(const std::string &str)
     for (size_t h = 0; h < str.length(); h++)
     {
         if (str[h] == ' ')
+            return true;
+    }
+    return false;  
+}
+
+bool digit(const std::string &str)
+{
+    for (size_t h = 0; h < str.length(); h++)
+    {
+        if (!std::isdigit(str[h]))
             return true;
     }
     return false;  
@@ -18,7 +40,19 @@ std::string getinput(const std::string &ms)
         std::cout << ms;
         std::getline(std::cin, line);
         if (line.empty() || space(line))
-            std::cout << "First name cannot be empty. Please try again" << '\n';
+            std::cout << "Error in the input. Please try again" << '\n';
+    }
+    return line;
+}
+std::string getinput_n(const std::string &ms)
+{
+    std::string line;
+    while (line.empty() || space(line) || digit(line))
+    {
+        std::cout << ms;
+        std::getline(std::cin, line);
+        if (line.empty() || space(line) || digit(line))
+            std::cout << "Error in the input. Please try again" << '\n';
     }
     return line;
 }
@@ -28,7 +62,7 @@ void    Contact::setData()
     this->f_name = getinput("Enter the first name ");
     this->l_name = getinput("Enter the last name ");
     this->n_name = getinput("Enter the nickname ");
-    this->p_number = getinput("Enter the phone number ");
+    this->p_number = getinput_n("Enter the phone number ");
     this->dark = getinput("Enter the darkest secret ");
 }
 
