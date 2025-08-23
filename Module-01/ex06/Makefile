@@ -1,6 +1,6 @@
 CPPC = c++ -std=c++98
 CPPFLAGS = -Wall -Wextra -Werror
-NAME = Harl
+NAME = harlFilter
 
 SRC = main.cpp Harl.cpp
 OBJ = $(SRC:.cpp=.o)
