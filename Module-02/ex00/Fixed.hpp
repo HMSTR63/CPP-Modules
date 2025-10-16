@@ -8,7 +8,7 @@ class Fixed
 	private :
 		int nb;
 		static const int n_bit;
-	public :
+	public : 
 		Fixed();
 		~Fixed();
 		Fixed(const Fixed &original);
