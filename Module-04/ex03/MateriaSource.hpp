@@ -11,6 +11,8 @@ class MateriaSource : public IMateriaSource
 		AMateria *_T[4];
 		AMateria *arry[1000];
 		int flag;
+		void _safeDeepCopy(const MateriaSource &O);
+		void _safeCleanup();
 	public :
 		MateriaSource();
 		MateriaSource(const MateriaSource &O);

@@ -1,4 +1,4 @@
-CPPC = g++ -std=c++98
+CPPC = c++ -std=c++98
 CPPFLAGS = -Wall -Wextra -Werror  -g3 -fsanitize=address
 NAME = ex03
 

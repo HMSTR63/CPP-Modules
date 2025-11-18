@@ -11,6 +11,8 @@ class Character : public ICharacter
 		AMateria *arry[1000];
 		int flag;
 		AMateria *_inv[4];
+		void _safeDeepCopy(const Character &O);
+        void _safeCleanup();
 	public :
 		Character();
 		Character(std::string name);
