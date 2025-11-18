@@ -3,13 +3,10 @@
 #include "MateriaSource.hpp"
 #include "Character.hpp"
 
-void f()
-{   
-    system ("leaks ex03");
-}
+
 int main()
 {
-	atexit(f);
+
     std::cout << "\n-----main test from subject-----\n" << std::endl;
     {
         IMateriaSource* src = new MateriaSource();
@@ -20,6 +17,7 @@ int main()
         tmp = src->createMateria("ice");
         me->equip(tmp);
         tmp = src->createMateria("cure");
+
         me->equip(tmp);
         ICharacter* bob = new Character("bob");
         me->use(0, *bob);

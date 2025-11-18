@@ -9,6 +9,8 @@ class MateriaSource : public IMateriaSource
 {
 	private :
 		AMateria *_T[4];
+		AMateria *arry[1000];
+		int flag;
 	public :
 		MateriaSource();
 		MateriaSource(const MateriaSource &O);

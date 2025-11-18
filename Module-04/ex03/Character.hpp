@@ -8,6 +8,8 @@ class Character : public ICharacter
 {
 	private :
 		std::string _name;
+		AMateria *arry[1000];
+		int flag;
 		AMateria *_inv[4];
 	public :
 		Character();

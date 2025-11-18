@@ -6,20 +6,19 @@ AMateria::AMateria() : _type("Default")
 
 }
 
-AMateria::AMateria(std::string type) : _type(type)
+AMateria::AMateria(std::string type)
 {	
-
+	_type = type;
 }
 
-AMateria::AMateria(const AMateria &O)
-{
-	*this = O;
-}
+// AMateria::AMateria(const AMateria &O)
+// {
+// 	*this = O;
+// }
 
 AMateria &AMateria::operator=(const AMateria &O)
 {
-	if (this != &O)
-		this->_type = O._type;
+	(void)O;
 	return *this;
 }
 

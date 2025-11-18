@@ -1,5 +1,5 @@
-CPPC = c++ -std=c++98
-CPPFLAGS = -Wall -Wextra -Werror  -g3
+CPPC = g++ -std=c++98
+CPPFLAGS = -Wall -Wextra -Werror  -g3 -fsanitize=address
 NAME = ex03
 
 SRC = main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp 

@@ -6,15 +6,14 @@ Cure::Cure() : AMateria("cure")
 
 }
 
-Cure::Cure(const Cure &O)
+Cure::Cure(const Cure &O) : AMateria("cure")
 {
-	*this = O;
+	(void)O;
 }
 
 Cure &Cure::operator=(const Cure &O)
 {
-	if (this != &O)
-		this->_type = O._type;
+	(void)O;
 	return *this;
 }
 
