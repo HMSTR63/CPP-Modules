@@ -1,5 +1,5 @@
 CPPC = c++ -std=c++98
-CPPFLAGS = -Wall -Wextra -Werror -fsanitize=address -g3
+CPPFLAGS = -Wall -Wextra -Werror #-fsanitize=address -g3
 NAME = ex01
 
 SRC = main.cpp Animal.cpp Cat.cpp Dog.cpp WrongAnimal.cpp WrongCat.cpp Brain.cpp

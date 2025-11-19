@@ -107,7 +107,7 @@ void Character::equip(AMateria *M)
 {
 	if (M == NULL)
 	{
-        std::cout << RED << "Cannot equip NULL Materia." << RESET << std::endl;
+		std::cout << RED << "Cannot equip NULL Materia." << RESET << std::endl;
 		return;
 	}
 	if (this->flag >= 1000)
@@ -119,15 +119,20 @@ void Character::equip(AMateria *M)
 	int i = 0;
 	while (i < 4)
 	{
-		if (this->_inv[i] == M)
+		int j = 0;
+		while (j < 4)
 		{
-            std::cout << RED << "Materia of type " << M->getType() << " is already equipped." << RESET << std::endl;
-			return;
+			if (this->_inv[j] == M)
+			{
+				std::cout << RED << "Materia of type " << M->getType() << " is already equipped." << RESET << std::endl;
+				return;
+			}
+			j++;
 		}
 		if (this->_inv[i] == NULL)
 		{
 			this->_inv[i] = M;
-			this->arry[this->flag] = M;
+			this->arry[this->flag] = this->_inv[i];
 			this->flag++;
             std::cout << CYAN << "Character " << _name << " equipped " << M->getType() << " at slot [" << i << "]." << RESET << std::endl;
 			return ;

@@ -14,6 +14,7 @@ Cat::~Cat()
 
 Cat::Cat(const Cat &original) : Animal(original)
 {
+	this->br = NULL;
 	*this = original;
 	std::cout <<" Cat Copy Constructor Called" << std::endl;
 }

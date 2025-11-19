@@ -12,7 +12,8 @@ Ice &Ice::operator=(const Ice &O)
     return *this;
 }
 
-Ice::~Ice() {}
+Ice::~Ice() {
+}
 
 AMateria *Ice::clone() const
 {

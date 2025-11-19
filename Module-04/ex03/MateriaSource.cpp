@@ -81,12 +81,20 @@ void MateriaSource::learnMateria(AMateria *M)
 	int i = 0;
 	while (i < 4)
 	{
-		if (this->_T[i] == M)
-			return;
+		int j = 0;
+		while (j < 4)
+		{
+			if (this->_T[j] == M)
+			{
+				std::cout << RED << "Materia of type " << M->getType() << " is already equipped." << RESET << std::endl;
+				return;
+			}
+			j++;
+		}
 		if (this->_T[i] == NULL)
 		{
 			this->_T[i] = M;
-			this->arry[this->flag] = M;
+			this->arry[this->flag] = this->_T[i];
 			this->flag++;
 			std::cout << YELLOW << "MateriaSource learned " << M->getType() << " at slot [" << i << "]." << RESET << std::endl;
 			return ;
