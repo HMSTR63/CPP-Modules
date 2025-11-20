@@ -12,10 +12,11 @@ Dog::~Dog()
 	std::cout << " Dog Destructor Called" << std::endl;
 }
 
-Dog::Dog(const Dog &original) : Animal(original)
+Dog::Dog(const Dog &original) : Animal()
 {
-	this->br = NULL;
-	*this = original;
+	Animal::operator=(original);
+
+	this->br = new Brain(*(original.br));
 	std::cout <<" Dog Copy Constructor Called" << std::endl;
 }
 

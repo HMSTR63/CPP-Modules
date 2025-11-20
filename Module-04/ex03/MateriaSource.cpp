@@ -20,6 +20,7 @@ void MateriaSource::_safeCleanup()
 	i = 0;
 	while (i < 4)
 	{
+		delete this->_T[i];
 		this->_T[i] = NULL;
 		i++;
 	}
@@ -56,7 +57,6 @@ void MateriaSource::_safeDeepCopy(const MateriaSource &O)
 
 MateriaSource::MateriaSource() : flag(0)
 {
-	std::cout << BLUE << "MateriaSource default constructed." << RESET << std::endl;
 	int i = 0;
 	while (i < 1000)
 		this->arry[i++] = NULL;
@@ -70,7 +70,6 @@ MateriaSource::MateriaSource() : flag(0)
 
 MateriaSource::~MateriaSource()
 {
-    std::cout << BLUE << "MateriaSource destroyed. Cleaning up " << this->flag << " learned Materias." << RESET << std::endl;
 	this->_safeCleanup();
 }
 
@@ -87,6 +86,7 @@ void MateriaSource::learnMateria(AMateria *M)
 			if (this->_T[j] == M)
 			{
 				std::cout << RED << "Materia of type " << M->getType() << " is already equipped." << RESET << std::endl;
+				delete M;
 				return;
 			}
 			j++;
@@ -94,9 +94,6 @@ void MateriaSource::learnMateria(AMateria *M)
 		if (this->_T[i] == NULL)
 		{
 			this->_T[i] = M;
-			this->arry[this->flag] = this->_T[i];
-			this->flag++;
-			std::cout << YELLOW << "MateriaSource learned " << M->getType() << " at slot [" << i << "]." << RESET << std::endl;
 			return ;
 		}
 		i++;
@@ -113,8 +110,7 @@ AMateria *MateriaSource::createMateria(std::string const &T)
 	{
 		if (this->_T[i] && this->_T[i]->getType() == T)
 		{
-			std::cout << YELLOW << "MateriaSource created a new " << T << " Materia." << RESET << std::endl;
-			return this->_T[i]->clone();
+			return this->_T[i];
 		}
 		i++;
 	}
@@ -124,7 +120,6 @@ AMateria *MateriaSource::createMateria(std::string const &T)
 
 MateriaSource::MateriaSource(const MateriaSource &O)
 {
-	std::cout << BLUE << "MateriaSource copy constructed." << RESET << std::endl;
 	this->_safeDeepCopy(O);
 }
 
@@ -132,7 +127,6 @@ MateriaSource &MateriaSource::operator=(const MateriaSource &O)
 {
 	if (this != &O)
 	{
-		std::cout << MAGENTA << "MateriaSource assignment operator called. Deep cleaning old data..." << RESET << std::endl;	
 		this->_safeCleanup();
 		this->_safeDeepCopy(O);
 	}

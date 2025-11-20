@@ -3,6 +3,12 @@
 Brain::Brain()
 {
     std::cout << "Brain constructed" << std::endl;
+    int i = 0;
+    while (i < 100)
+    {
+        this->ideas[i] = "";
+        i++;
+    }
 }
 
 Brain::~Brain()

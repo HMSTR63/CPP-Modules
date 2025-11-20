@@ -7,36 +7,36 @@ int main()
 {
 	Dog g;
 	Dog l(g);
-	// int I = 10;
-	// int i = 0;
-	// Animal *dazai[I];
+	int I = 10;
+	int i = 0;
+	Animal *dazai[I];
 
-	// while (i < I / 2)
-	// {
-	// 	dazai[i] = new Dog();
-	// 	i++;
-	// }
+	while (i < I / 2)
+	{
+		dazai[i] = new Dog();
+		i++;
+	}
 
-	// i = I / 2;
-	// while (i < I)
-	// {
-	// 	dazai[i] = new Cat();
-	// 	i++;
-	// }
+	i = I / 2;
+	while (i < I)
+	{
+		dazai[i] = new Cat();
+		i++;
+	}
 
-	// i = 0;
+	i = 0;
 
-	// while (i < I)
-	// {
-	// 	delete dazai[i];
-	// 	i++;
-	// }
+	while (i < I)
+	{
+		delete dazai[i];
+		i++;
+	}
 
-	// Dog d1;
-	// Dog d2 = d1;
+	Dog d1;
+	Dog d2 = d1;
 
-	// std::cout << d1.getBrain() << '\n';
-	// std::cout << d2.getBrain() << '\n';
+	std::cout << d1.getBrain() << '\n';
+	std::cout << d2.getBrain() << '\n';
 
 	return 0;
 

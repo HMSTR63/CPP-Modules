@@ -14,8 +14,8 @@ Dog::~Dog()
 
 Dog::Dog(const Dog &original) : Animal(original)
 {
-	this->br = NULL;
-	*this = original;
+	Animal::operator=(original);
+	this->br = new Brain(*(original.br));
 	std::cout <<" Dog Copy Constructor Called" << std::endl;
 }
 
