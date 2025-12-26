@@ -13,8 +13,9 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@echo "\033[1;32m✅ Compiling complete source code into executable...\033[0m"
 	@$(CPPC) $(CPPFLAGS) $(OBJ) -o $(NAME)
-	@echo "\033[1;32m🎉 Build successful! You can now run ./$(NAME)\033[0m"
+	
 
+	@echo "\033[1;32m🎉 Build successful! You can now run ./$(NAME)\033[0m"
 %.o: %.cpp
 	@$(CPPC) $(CPPFLAGS) -MMD -c $< -o $@
 	@echo "\033[1;34m🔹 Compiling: $< -> $@\033[0m"
