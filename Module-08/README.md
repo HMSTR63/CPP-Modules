@@ -141,8 +141,3 @@ Here are the best resources to deepen your understanding of the Standard Templat
 - [**List in C++ STL**](https://www.geeksforgeeks.org/list-cpp-stl/) - How and when to use lists.
 - [**Stack in C++ STL**](https://www.geeksforgeeks.org/stack-in-cpp-stl/) - Understanding stack operations.
 - [**Iterators in C++ STL**](https://www.geeksforgeeks.org/iterators-c-stl/) - Simple explanation of how iterators work.
-
-### 🎥 Additional Learning
-
-- [**Back to Basics: The STL** (CppCon)](https://www.youtube.com/watch?v=H74cWkK5g7c) - Excellent video explanation of STL concepts.
-- [**Template classes and typename**](https://stackoverflow.com/questions/11275444/c-template-typename-iterator) - StackOverflow discussion on why `typename` is needed for iterators.
