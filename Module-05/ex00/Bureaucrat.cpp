@@ -12,11 +12,12 @@ Bureaucrat::Bureaucrat(const Bureaucrat& O) : _name(O._name), _grade(O._grade) {
 
 Bureaucrat& Bureaucrat::operator=(const Bureaucrat& O)
 {
-    if (this != &O) this->_grade = O._grade;
+    if (this != &O) 
+		this->_grade = O._grade;
     return *this;
 }
 
-Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name), _grade(grade)
+Bureaucrat::Bureaucrat(const std::string &name, int grade) : _name(name), _grade(grade)
 {
     if (grade < 1) throw GradeTooHighException();
     if (grade > 150) throw GradeTooLowException();
