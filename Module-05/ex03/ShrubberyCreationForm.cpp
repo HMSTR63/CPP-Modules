@@ -1,5 +1,6 @@
 #include "ShrubberyCreationForm.hpp"
 
+#include "AForm.hpp"
 #include "Bureaucrat.hpp"
 
 ShrubberyCreationForm::ShrubberyCreationForm()
@@ -34,15 +35,9 @@ ShrubberyCreationForm::~ShrubberyCreationForm()
 
 void ShrubberyCreationForm::execute(const Bureaucrat& executer) const
 {
-    if (this->getSign() == false) throw AForm::FormNotSignedException();
-    if (executer.getGrade() > this->getGradeToExec()) throw AForm::GradeTooLowException();
-
+    this->checkExecution(executer);
     std::ofstream ofile((this->_target + "_shrubbery").c_str());
-    if (!ofile.is_open())
-    {
-        std::cerr << "Cant open this File" << std::endl;
-        return;
-    }
+    if (!ofile.is_open()) throw AForm::FileOpenException();
     ofile << "       _-_" << std::endl;
     ofile << "    /~~   ~~\\" << std::endl;
     ofile << " /~~         ~~\\" << std::endl;

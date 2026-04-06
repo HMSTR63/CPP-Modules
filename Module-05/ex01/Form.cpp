@@ -22,10 +22,7 @@ Form::Form(const std::string name, const int gradeToSign, const int gradeToExec)
 Form::~Form() { std::cout << "kill " << this->getName() << std::endl; }
 
 Form::Form(const Form& O)
-    : _name(O._name),
-      _isSigned(O._isSigned),
-      _gradeToSign(O._gradeToSign),
-      _gradeToExec(O._gradeToExec)
+    : _name(O._name), _isSigned(false), _gradeToSign(O._gradeToSign), _gradeToExec(O._gradeToExec)
 {
 }
 

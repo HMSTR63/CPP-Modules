@@ -37,8 +37,7 @@ RobotomyRequestForm::~RobotomyRequestForm()
 
 void RobotomyRequestForm::execute(const Bureaucrat& executor) const
 {
-    if (!this->getSign()) throw AForm::FormNotSignedException();
-    if (executor.getGrade() > this->getGradeToExec()) throw AForm::GradeTooLowException();
+    this->checkExecution(executor);
     std::cout << "Drilling noises..." << std::endl;
     if (std::rand() % 2 == 0)
         std::cout << this->_target << " has been robotomized successfully 50% of the time"

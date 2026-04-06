@@ -16,13 +16,10 @@ Bureaucrat& Bureaucrat::operator=(const Bureaucrat& O)
     return *this;
 }
 
-Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name)
+Bureaucrat::Bureaucrat(const std::string name, int grade) : _name(name), _grade(grade)
 {
     if (grade < 1) throw GradeTooHighException();
-    if (grade > 150)
-        throw GradeTooLowException();
-    else
-        this->_grade = grade;
+    if (grade > 150) throw GradeTooLowException();
 }
 
 void Bureaucrat::incGrade()

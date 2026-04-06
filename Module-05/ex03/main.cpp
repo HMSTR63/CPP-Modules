@@ -20,8 +20,8 @@ int main()
             AForm* toto;
             toto = bono.makeForm("shrubbery creation", "AMG");
             std::cout << *toto << std::endl;
-            // ham.signForm(merForm);
-            // ham.executeForm(merForm);
+            ham.signForm(merForm);
+            ham.executeForm(merForm);
             delete toto;
         }
         catch (std::exception& e)

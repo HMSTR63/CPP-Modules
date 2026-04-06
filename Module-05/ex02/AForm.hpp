@@ -15,6 +15,9 @@ class AForm
     const int _gradeToSign;
     const int _gradeToExec;
 
+   protected:
+    void checkExecution(Bureaucrat const& executor) const;
+
    public:
     AForm();
     ~AForm();
@@ -39,6 +42,11 @@ class AForm
         const char* what() const throw();
     };
     class FormNotSignedException : public std::exception
+    {
+       public:
+        const char* what() const throw();
+    };
+    class FileOpenException : public std::exception
     {
        public:
         const char* what() const throw();

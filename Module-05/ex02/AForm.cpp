@@ -22,10 +22,7 @@ AForm::AForm(const std::string name, const int gradeToSign, const int gradeToExe
 AForm::~AForm() { std::cout << "kill " << this->getName() << "!!" << std::endl; }
 
 AForm::AForm(const AForm& O)
-    : _name(O._name),
-      _isSigned(O._isSigned),
-      _gradeToSign(O._gradeToSign),
-      _gradeToExec(O._gradeToExec)
+    : _name(O._name), _isSigned(false), _gradeToSign(O._gradeToSign), _gradeToExec(O._gradeToExec)
 {
 }
 
@@ -60,3 +57,11 @@ const char* AForm::GradeTooLowException::what() const throw() { return "Grade is
 const char* AForm::GradeTooHighException::what() const throw() { return "Grade is too high !!"; }
 
 const char* AForm::FormNotSignedException::what() const throw() { return "Form Not Signed !!"; }
+
+const char* AForm::FileOpenException::what() const throw() { return "File Not Open !!"; }
+
+void AForm::checkExecution(Bureaucrat const& executor) const
+{
+    if (this->getSign() == false) throw AForm::FormNotSignedException();
+    if (executor.getGrade() > this->getGradeToExec()) throw AForm::GradeTooLowException();
+}

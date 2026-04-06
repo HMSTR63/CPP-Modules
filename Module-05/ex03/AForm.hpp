@@ -15,9 +15,12 @@ class AForm
     const int _gradeToSign;
     const int _gradeToExec;
 
+   protected:
+    void checkExecution(Bureaucrat const& executor) const;
+
    public:
     AForm();
-    virtual ~AForm();
+    ~AForm();
     AForm(const std::string name, const int gradeToSign, const int gradeToExec);
     AForm(const AForm& O);
     AForm& operator=(const AForm& O);
@@ -39,6 +42,11 @@ class AForm
         const char* what() const throw();
     };
     class FormNotSignedException : public std::exception
+    {
+       public:
+        const char* what() const throw();
+    };
+    class FileOpenException : public std::exception
     {
        public:
         const char* what() const throw();
