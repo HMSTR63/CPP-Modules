@@ -1,7 +1,8 @@
 #include <cstdlib>
 #include <ctime>
-
-#include "Bass.hpp"
+#include <exception>
+#include <typeinfo>
+#include "Base.hpp"
 
 Base* generate(void)
 {
@@ -21,11 +22,15 @@ Base* generate(void)
             std::cout << "Generate Error" << std::endl;
             return NULL;
     }
-    return NULL;
 }
 
 void identify(Base* p)
 {
+	if (p == NULL)
+    {
+        std::cout << "Pointer is NULL" << std::endl;
+        return;
+    }
     if (dynamic_cast<A*>(p) != NULL)
         std::cout << "A" << std::endl;
     else if (dynamic_cast<B*>(p) != NULL)
@@ -45,7 +50,7 @@ void identify(Base& p)
         std::cout << "A" << std::endl;
         return;
     }
-    catch (...)
+    catch (std::exception &e)
     {
     }
     try
@@ -55,9 +60,7 @@ void identify(Base& p)
         std::cout << "B" << std::endl;
         return;
     }
-    catch (...)
-    {
-    }
+    catch (std::exception &e){}
     try
     {
         C& c = dynamic_cast<C&>(p);
@@ -65,7 +68,7 @@ void identify(Base& p)
         std::cout << "C" << std::endl;
         return;
     }
-    catch (...)
+    catch (std::exception &e)
     {
         std::cout << "Unknown" << std::endl;
     }
@@ -81,6 +84,7 @@ int main()
         identify(papa);
         identify(*papa);
         delete papa;
+		std::cout << "----------------" << std::endl;
         x++;
     }
     return 0;
