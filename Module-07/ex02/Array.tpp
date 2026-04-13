@@ -5,8 +5,12 @@ Array<T>::Array() : _data(NULL), _size(0)
 }
 
 template <typename T>
-Array<T>::Array(unsigned int size) : _data(new T[size]()), _size(size)
+Array<T>::Array(unsigned int size) : _size(size)
 {
+	if (size > 0)
+        this->_data = new T[size]();
+    else
+        this->_data = NULL;
 }
 
 template <typename T>
