@@ -20,3 +20,12 @@ typename T::iterator easyfind(T &holder, int Tofind)
 		throw NoElementFound();
 	return F;
 }
+
+template<typename T>
+typename T::const_iterator easyfind(const T &holder, int Tofind)
+{
+	typename T::const_iterator F = std::find(holder.begin(), holder.end(), Tofind);
+	if (F == holder.end())
+		throw NoElementFound();
+	return F;
+}

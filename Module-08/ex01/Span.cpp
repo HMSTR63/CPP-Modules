@@ -38,11 +38,11 @@ int Span::shortestSpan()
 		throw NoSpanException();
 	std::vector<int> tmp_v = holder;
 	std::sort(tmp_v.begin(), tmp_v.end());
-	int diff = tmp_v[1] - tmp_v[0];
+	unsigned int diff = static_cast<unsigned int>(tmp_v[1]) - static_cast<unsigned int>(tmp_v[0]);
 	size_t x = 1;
 	while (x < tmp_v.size())
 	{
-		int curr_diff = tmp_v[x] - tmp_v[x - 1];
+		unsigned int curr_diff = static_cast<unsigned int>(tmp_v[x]) - static_cast<unsigned int>(tmp_v[x - 1]);
 		if (curr_diff < diff)
 			diff = curr_diff; 
 		x++;
@@ -56,7 +56,7 @@ int Span::longestSpan()
 		throw NoSpanException();
 	int min_v = *std::min_element(holder.begin(), holder.end()); 
 	int max_v =	*std::max_element(holder.begin(), holder.end());
-	return (max_v - min_v);
+	return (static_cast<unsigned int>(max_v) - static_cast<unsigned int>(min_v));
 }
 
 const char* Span::FullSpanException::what() const throw()
