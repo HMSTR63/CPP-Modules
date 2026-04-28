@@ -3,11 +3,12 @@
 #include <exception>
 #include <iostream>
 #include <stack>
+#include <list>
 #include <string>
 class RPN
 {
    private:
-    std::stack<int> _box;
+    std::stack<int, std::list<int> > _box;
 
    public:
     RPN();
