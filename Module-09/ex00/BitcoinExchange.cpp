@@ -11,6 +11,17 @@ BitcoinExchange::BitcoinExchange() {}
 
 BitcoinExchange::~BitcoinExchange() {}
 
+BitcoinExchange::BitcoinExchange(const BitcoinExchange& O) {
+    *this = O;
+}
+
+BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& O) {
+    if (this != &O) {
+        this->_db = O._db;
+    }
+    return *this;
+}
+
 std::string ft_trim(const std::string& s)
 {
     size_t f = s.find_first_not_of(" \f\r\n");
@@ -27,12 +38,6 @@ bool isValidDate(const std::string& date)
     int m = std::atoi(date.substr(5, 2).c_str());
     int d = std::atoi(date.substr(8, 2).c_str());
     if (y < 2009 || m < 1 || m > 12 || d < 1 || d > 31) return false;
-    if (m == 2)
-    {
-        bool leapYear = (y % 4 == 0);
-        if (leapYear && d > 29) return false;
-        if (!leapYear && d > 28) return false;
-    }
     if ((m == 4 || m == 6 || m == 9 || m == 11) && d > 30) return false;
     return true;
 }
@@ -81,6 +86,18 @@ void BitcoinExchange::processInput(const std::string& input_filename)
         if (!isValidDate(date))
         {
             std::cout << "Error: bad input => " << date << std::endl;
+            continue;
+        }
+		bool valid_number = true;
+        int dot_count = 0;
+        for (size_t i = 0; i < v_str.length(); ++i) {
+            if (v_str[i] == '.') 
+				dot_count++;
+            else if (!isdigit(v_str[i]) && !(i == 0 && v_str[i] == '-')) 
+				valid_number = false;
+        }
+        if (!valid_number || dot_count > 1) {
+            std::cout << "Error: not a number => " << v_str << std::endl;
             continue;
         }
         float v = atof(v_str.c_str());
