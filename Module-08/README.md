@@ -1,143 +1,98 @@
-# 🧰 CPP Module 08 - The Standard Template Library (STL)
+# Module 08 · Containers, iterators, and algorithms
 
-![C++](https://img.shields.io/badge/C++-98-blue.svg)
-![Score](https://img.shields.io/badge/Score-100%2F100-success.svg)
+[← Module 07](../Module-07/README.md) · [All modules](../README.md) · [Subject PDF · v10.1](en.subject.pdf) · [Module 09 →](../Module-09/README.md)
 
-## 📖 Overview
+The STL brings together containers that store data, iterators that expose a
+sequence, and algorithms that operate on iterator ranges. These exercises use
+that separation to implement generic search, distance calculations, and an
+iterable stack adapter.
 
-This repository contains my solutions for **C++ Module 08** of the 42 Network curriculum. The core objective of this module is to transition from classic C++ arrays and manual memory management into the powerful and highly optimized world of the **Standard Template Library (STL)**.
+## Exercises
 
-Throughout this project, I explored templated containers, generic algorithms, and the iterators that bridge them together.
+| Directory | Subject title | Focus | Executable |
+| --- | --- | --- | --- |
+| [ex00](ex00/) | Easy find | Generic search with `std::find` | `easyfind` |
+| [ex01](ex01/) | Span | Capacity, iterator-range insertion, and numeric distances | `Span` |
+| [ex02](ex02/) | Mutated abomination | Extending `std::stack` with iterators | `MutantStack` |
 
----
+## What to understand
 
-## 🏛️ The Big Picture: STL Architecture
+- **Containers:** `std::vector` and `std::list` provide different storage models.
+  Generic search can use either through their iterator interfaces.
+- **Half-open ranges:** `[begin, end)` includes the first element and excludes the
+  past-the-end position. Never dereference `end()`.
+- **Algorithms:** `std::find`, `std::sort`, `std::min_element`, and
+  `std::max_element` express common operations without duplicating their logic.
+- **Adapters:** `std::stack` exposes a restricted interface over an underlying
+  container. A derived adapter can access its protected container member `c`.
 
-The STL is not just a collection of pre-built tools; it is a brilliantly designed architecture built on three decoupled pillars:
+## Subject requirements
 
-1. **Containers:** Data structures used to store collections of data (e.g., `vector`, `list`, `deque`).
-2. **Algorithms:** Functions that perform operations on containers (e.g., `sort`, `find`, `min_element`).
-3. **Iterators:** The "smart pointers" that act as the bridge. Algorithms do not care about the underlying container type; they only interact with its Iterators.
+- Use STL containers and algorithms wherever appropriate; doing so is an explicit
+  objective of this module.
+- `easyfind` finds the first occurrence of an integer in a container. Missing
+  values can produce an exception or another documented error result. Associative
+  containers are not required.
+- `Span` stores at most `N` integers. Adding beyond capacity throws; computing a
+  span with fewer than two values also throws.
+- Provide shortest and longest distances, insertion of a range in one call, and
+  tests containing at least **10,000 numbers**.
+- `MutantStack` retains normal stack operations and adds iteration. Compare its
+  observable behavior with an equivalent sequence in another container.
 
----
+## Build and run
 
-## 🟢 ex00: `easyfind` - The Power of Generic Algorithms
-
-### 📝 Summary
-
-This exercise introduces the `<algorithm>` library, specifically the `std::find` function. The goal is to write a generic template function that can find an integer in **any** container type without writing manual `while` or `for` loops.
-
-### 🔍 Deep Dive
-
-- **Iterators vs Pointers:** An Iterator is not a raw pointer; it is a smart object with overloaded operators (like `++` and `*`) that allows it to safely mimic pointer behavior across complex data structures.
-- **The "Not-Found" Condition:** The true power of `std::find` is that it returns `container.end()` if the element is not found. We use this exact condition to safely throw a custom Exception instead of causing a segmentation fault.
-
-### 💻 Syntax Highlight
-
-```cpp
-template <typename T>
-typename T::iterator easyfind(T& container, int value) {
-    typename T::iterator it = std::find(container.begin(), container.end(), value);
-    if (it == container.end())
-        throw std::exception(); // Or a custom NotFoundException
-    return it;
-}
-```
-
----
-
-## 🟡 ex01: Span - Memory Limits & Advanced Iteration
-
-### 📝 Summary
-
-This exercise focuses on heavy data manipulation using the `std::vector` container. The `Span` class stores a maximum of `N` integers and calculates the shortest and longest distances between any two numbers.
-
-### 🔍 Deep Dive
-
-- **Algorithmic Complexity:** To find the shortest span, comparing every number to every other number results in a sluggish $O(N^2)$ complexity. By sorting a copy of the vector first using `std::sort`, the performance improves to $O(N \log N)$, making the program capable of processing tens of thousands of numbers in milliseconds.
-- **Range Insertion (The 10k Trick):** The most powerful feature of a vector is its ability to insert an entire range of data at once using Iterators. This allowed the implementation of an `addNumber` template function that adds 10,000 numbers in a single call without a manual `push_back` loop.
-
-### 💻 Syntax Highlight
-
-```cpp
-// 1. Sorting a copy of the vector for shortestSpan
-std::vector<int> tmp = _storage;
-std::sort(tmp.begin(), tmp.end());
-
-// 2. Inserting a range instantly (Range-based Iterator Insertion)
-template <typename Iterator>
-void addNumber(Iterator begin, Iterator end) {
-    int dist = std::distance(begin, end);
-    if (_storage.size() + static_cast<unsigned int>(dist) > _max_size)
-        throw FullSpanException();
-    _storage.insert(_storage.end(), begin, end);
-}
-```
-
----
-
-## 🔴 ex02: MutantStack - Breaking the Adapter Pattern
-
-### 📝 Summary
-
-In C++, `std::stack` is not iterable. It enforces strict **LIFO** (Last-In, First-Out) rules. This exercise requires creating a `MutantStack` that inherits from `std::stack` but hacks into it to expose its iterators, making it iterable like a standard vector or list.
-
-### 🔍 Deep Dive
-
-- **Container Adapters & `std::deque`:** A `std::stack` is not a true container; it is a Container Adapter. Under the hood, it wraps an underlying double-ended queue (`std::deque`) inside a protected variable named `c`. By inheriting from `std::stack`, we gain access to this `c` variable.
-- **The `typedef` & `typename` Mystery:** Because our class inherits from a Template, the C++98 compiler gets confused by dependent scopes. We must use the `typename` keyword to explicitly tell the compiler that `container_type::iterator` is a **Type** and not a **Variable**. We then use `typedef` to give it the standard alias `iterator`.
-
-### 💻 Syntax Highlight
-
-```cpp
-template <typename T>
-class MutantStack : public std::stack<T> {
-public:
-    // Resolving compiler confusion with typedef and typename
-    typedef typename std::stack<T>::container_type::iterator iterator;
-
-    // Accessing the protected underlying container 'c'
-    iterator begin() { return this->c.begin(); }
-    iterator end() { return this->c.end(); }
-};
-```
-
----
-
-## 🛠️ Compilation & Usage
-
-To compile any of the exercises, navigate to the respective directory and use the provided `Makefile`:
+Run from `Module-08/`; all programs have built-in demonstrations:
 
 ```bash
-cd ex00  # or ex01, ex02
-make
-./<executable_name>
+make -C ex00
+./ex00/easyfind
+make -C ex01
+./ex01/Span
+make -C ex02
+./ex02/MutantStack
 ```
 
-### Compiler constraints:
+`easyfind` tries vector, list, missing-value, and empty-container cases.
+`Span` runs the five-value subject example, an empty-span case, and a range
+insertion of **63,000 random integers**. The five-value example should produce a
+shortest span of `2` and a longest span of `14`; the large random results vary.
+`MutantStack` prints its stack and iterator operations, then repeats the sequence
+with a list for comparison.
 
-- **Compiled with:** `c++`
-- **Flags:** `-Wall -Wextra -Werror -std=c++98`
+Use `make -C ex01 fclean` to clean an exercise or `make -C ex01 re` to rebuild it.
 
----
+## Code map
 
-## 📚 Resources
+- [easyfind.hpp](ex00/easyfind.hpp): mutable and const search overloads that throw
+  `NoElementFound` when the requested value is absent.
+- [Span.hpp](ex01/Span.hpp): capacity, single-value insertion, and templated range
+  insertion; [Span.cpp](ex01/Span.cpp) implements distance calculations.
+- [MutantStack.hpp](ex02/MutantStack.hpp): iterator aliases and access to the
+  underlying stack container, including const and reverse traversal methods.
+- [ex02/main.cpp](ex02/main.cpp): the stack/list comparison driver.
 
-Here are the best resources to deepen your understanding of the Standard Template Library (STL) in C++98:
+## Implementation notes
 
-### 📖 CPP Reference (The Bible)
+The shortest-span implementation sorts a copy and examines adjacent differences,
+so sorting dominates its `O(n log n)` running time. The longest span uses the
+minimum and maximum values with linear scans. The stored order remains unchanged
+by those calculations.
 
-- [**Standard Template Library (STL) Overview**](https://en.cppreference.com/w/cpp/container) - The full list of containers.
-- [**std::vector**](https://en.cppreference.com/w/cpp/container/vector) - Dynamic array documentation.
-- [**std::list**](https://en.cppreference.com/w/cpp/container/list) - Doubly linked list documentation.
-- [**std::stack**](https://en.cppreference.com/w/cpp/container/stack) - LIFO stack adapter.
-- [**std::find**](https://en.cppreference.com/w/cpp/algorithm/find) - Algorithm to find elements in a range.
-- [**Iterator Library**](https://en.cppreference.com/w/cpp/iterator) - Understanding Input, Output, Forward, and Random Access iterators.
+`MutantStack<T>` inherits from `std::stack<T>` and exposes its underlying iterator
+families through dependent type aliases using `typename`.
 
-### 🧠 GeeksforGeeks
+## Checkout notes
 
-- [**The C++ Standard Template Library (STL)**](https://www.geeksforgeeks.org/the-c-standard-template-library-stl/) - Great beginner-friendly introduction.
-- [**Vector in C++ STL**](https://www.geeksforgeeks.org/vector-in-cpp-stl/) - Examples and usage of vectors.
-- [**List in C++ STL**](https://www.geeksforgeeks.org/list-cpp-stl/) - How and when to use lists.
-- [**Stack in C++ STL**](https://www.geeksforgeeks.org/stack-in-cpp-stl/) - Understanding stack operations.
-- [**Iterators in C++ STL**](https://www.geeksforgeeks.org/iterators-c-stl/) - Simple explanation of how iterators work.
+All three exercises passed the recorded clean build check. Their Makefiles enable
+AddressSanitizer. The build check does not establish correctness for the full
+integer range: the current `Span` distance methods return `int`, which deserves
+particular attention when testing widely separated signed values.
+
+## Cases to explore
+
+- Search for the first, last, repeated, and missing value, including in a const container.
+- Fill a Span exactly to capacity, then try one extra value and an oversized range.
+- Calculate spans with zero, one, duplicate, negative, and widely separated values.
+- Copy a Span and modify one copy independently.
+- Compare forward, reverse, and const stack traversal with the underlying sequence.
